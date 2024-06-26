@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patients</title>
+    <script>
+        async function fetchPatients() {
+            const response = await fetch('/api/patients/');
+            const data = await response.json();
+            const tableBody = document.getElementById('patients-table-body');
+            tableBody.innerHTML = '';
+
+            data.forEach(patient => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${patient.patient_id}</td>
+                    <td>${patient.name}</td>
+                    <td>${patient.contact_information}</td>
+                    <td>${patient.medical_history}</td>
+                    <td>${patient.date_of_birth}</td>
+                    <td>${patient.gender}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        async function addPatient(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+
+            const response = await fetch('/api/patients/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (response.ok) {
+                fetchPatients();
+                event.target.reset();
+            } else {
+                alert('Error adding patient');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchPatients);
+    </script>
+</head>
+<body>
+    <h1>Patients</h1>
+    <form id="add-patient-form" onsubmit="addPatient(event)">
+        <h2>Add New Patient</h2>
+        <label for="patient_id">Patient ID:</label>
+        <input type="text" id="patient_id" name="patient_id" required><br>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br>
+        <label for="contact_information">Contact Information:</label>
+        <input type="text" id="contact_information" name="contact_information" required><br>
+        <label for="medical_history">Medical History:</label>
+        <input type="text" id="medical_history" name="medical_history"><br>
+        <label for="date_of_birth">Date of Birth:</label>
+        <input type="date" id="date_of_birth" name="date_of_birth" required><br>
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select><br>
+        <button type="submit">Add Patient</button>
+    </form>
+
+    <h2>Patient List</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Patient ID</th>
+                <th>Name</th>
+                <th>Contact Information</th>
+                <th>Medical History</th>
+                <th>Date of Birth</th>
+                <th>Gender</th>
+            </tr>
+        </thead>
+        <tbody id="patients-table-body">
+            <!-- Data will be populated here -->
+        </tbody>
+    </table>
+</body>
+</html>

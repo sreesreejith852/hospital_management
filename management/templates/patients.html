@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patients</title>
+    <script>
+        async function fetchPatients() {
+            let url = '/api/patients/';
+            const name = document.getElementById('name').value;
+            const medical_history = document.getElementById('medical_history').value;
+            const date_of_birth = document.getElementById('date_of_birth').value;
+            const gender = document.getElementById('gender').value;
+
+            const params = new URLSearchParams();
+            if (name) params.append('name', name);
+            if (medical_history) params.append('medical_history', medical_history);
+            if (date_of_birth) params.append('date_of_birth', date_of_birth);
+            if (gender) params.append('gender', gender);
+
+            url += '?' + params.toString();
+
+            const response = await fetch(url);
+            const data = await response.json();
+            const tableBody = document.getElementById('patients-table-body');
+            tableBody.innerHTML = '';
+
+            data.forEach(patient => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${patient.patient_id}</td>
+                    <td>${patient.name}</td>
+                    <td>${patient.contact_information}</td>
+                    <td>${patient.medical_history}</td>
+                    <td>${patient.date_of_birth}</td>
+                    <td>${patient.gender}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Patients</h1>
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <label for="medical_history">Medical History:</label>
+        <input type="text" id="medical_history" name="medical_history">
+        <label for="date_of_birth">Date of Birth:</label>
+        <input type="date" id="date_of_birth" name="date_of_birth">
+        <label for="gender">Gender:</label>
+        <input type="text" id="gender" name="gender">
+        <button onclick="fetchPatients()">Search</button>
+    </div>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Patient ID</th>
+                <th>Name</th>
+                <th>Contact Information</th>
+                <th>Medical History</th>
+                <th>Date of Birth</th>
+                <th>Gender</th>
+            </tr>
+        </thead>
+        <tbody id="patients-table-body">
+            <!-- Data will be populated here -->
+        </tbody>
+    </table>
+</body>
+</html>
