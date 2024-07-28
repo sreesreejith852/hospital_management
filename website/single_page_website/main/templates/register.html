@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places"></script>
+    <script>
+        function initMap() {
+            const input = document.getElementById('id_address');
+            const autocomplete = new google.maps.places.Autocomplete(input);
+
+            autocomplete.addListener('place_changed', function () {
+                const place = autocomplete.getPlace();
+                if (!place.geometry) {
+                    return;
+                }
+
+                document.getElementById('id_latitude').value = place.geometry.location.lat();
+                document.getElementById('id_longitude').value = place.geometry.location.lng();
+            });
+        }
+
+        window.onload = initMap;
+    </script>
+</head>
+<body>
+    <h1>Register</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+    <a href="{% url 'login' %}">Login</a>
+</body>
+</html>

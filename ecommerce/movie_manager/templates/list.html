@@ -1,0 +1,16 @@
+{%include 'menu.html'%}
+
+
+<h1>list movies</h1>
+<table>
+<tr><th>Title</th><th>Year</th><th>Summary</th><th>Edit/Delete</th></tr>
+
+{%for movie_obj in movies%}
+<tr>
+<td><p>{{movie_obj.title}}</p></td>
+<td><p>{{movie_obj.title}}</p></td>
+<td><p>{{movie_obj.summary}}</p></td>
+<td><a href="{% url 'edit' movie_obj.id %}"><button>Edit</button></a>/<a href="{% url 'delete' movie_obj.id %}"><button>Delete</button></a></td>
+</tr>
+{%endfor%}
+</table>

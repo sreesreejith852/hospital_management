@@ -1,0 +1,16 @@
+<h1>create movies</h1>
+<form id ="frm" method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+    ID :<input type="number" name="id"/>
+    Titile :<input type="text" name="title"/>
+    Body :<input type="text" name="body"/>
+<button type = "submit" onclick="redirectToNewPage()">Create</button>
+<button type = "submit" >Delete</button>
+</form>
+<script>
+    console.log("tettttttttttttttttttttttt")
+    function redirectToNewPage(){
+        window.location.href = 'list.html'
+
+    }
+</script>

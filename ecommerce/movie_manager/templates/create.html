@@ -1,0 +1,19 @@
+{%include 'menu.html'%}
+
+
+<h1>create movies</h1>
+<form id ="frm" method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+    Titile :<input type="text" name="title"/>
+    year :<input type="number" name="year"/>
+    summary :<input type="text" name="summary"/>
+<button type = "submit" onclick="redirectToNewPage()">Create</button>
+</form>
+console.log("nameeeeeeeeeeeeeeeeeee")
+<script>
+    console.log("tettttttttttttttttttttttt")
+    function redirectToNewPage(){
+        window.location.href = 'list.html'
+
+    }
+</script>

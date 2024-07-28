@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Tournament Management</title>
+</head>
+<body>
+    <h1>Task Tracking System</h1>
+
+    <!-- Registration Form -->
+    <h2>Task</h2>
+    <form method="post"action="/list_task/" enctype="multipart/form-data">
+        {%csrf_token%}
+        <label for="title">Title:</label>
+        <input type="text" name="title" required><br><br>
+        
+        <label for="description">Description:</label>
+        <input type="text" name="description" required><br><br>
+        
+        
+
+        <label for="checkbox">Completed:</label>
+        <input type="checkbox" id="checkbox" name="checkbox_name" value="checkbox_value"><br><br>
+        
+       
+        <button type="submit">Submit</button>
+    </form>
+
+   
+</body>
+</html>

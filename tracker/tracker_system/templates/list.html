@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Assigned</title>
+</head>
+<body>
+    <h1>Task List</h1>
+    <table border="2"> <!-- Add the border attribute here -->
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Completed</th>                      
+
+        </tr>
+
+        {%for task_obj in tasks%}
+        <tr>
+        <td><p>{{task_obj.title}}</p></td>
+        <td><p>{{task_obj.description}}</p></td>
+        <td><p>{{task_obj.completed}}</p></td>
+        </tr>
+        {%endfor%}
+    </table>
